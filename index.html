@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CatalystChat - A IA que sua equipe vai amar usar.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0A0A;
+            color: #EAEAEA;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .catalyst-green { color: #00FF0D; }
+        .bg-catalyst-green { background-color: #00FF0D; }
+        .border-catalyst-green { border-color: #00FF0D; }
+
+        .hero-bg {
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(ellipse at bottom, rgba(0, 255, 13, 0.15) 0%, rgba(10, 10, 10, 0) 60%);
+        }
+        
+        .tech-lines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .tech-line { position: absolute; background: rgba(0, 255, 13, 0.5); border-radius: 50%; opacity: 0; }
+        .tech-line-1 { width: 1px; height: 100%; left: 10%; animation: move-line 15s linear infinite; }
+        .tech-line-2 { width: 1px; height: 100%; left: 90%; animation: move-line 20s linear infinite reverse; }
+        .tech-line-3 { width: 100%; height: 1px; top: 20%; animation: move-line-h 25s linear infinite; }
+        .tech-line-4 { width: 1px; height: 50%; left: 50%; top: -50%; animation: move-line 18s linear infinite; }
+
+        @keyframes move-line { 0% { transform: translateY(-100%); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(100%); opacity: 0; } }
+        @keyframes move-line-h { 0% { transform: translateX(-100%); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateX(100%); opacity: 0; } }
+
+        .logo-container:hover .logo-icon { transform: rotate(360deg) scale(1.1); filter: drop-shadow(0 0 15px rgba(0, 255, 13, 0.8)); }
+        .logo-icon { transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), filter 0.8s ease; }
+        
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        .cta-button { transition: transform 0.3s ease, box-shadow 0.3s ease; white-space: nowrap; }
+        .cta-button:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 10px 20px rgba(0, 255, 13, 0.25); }
+
+        .feature-card, .plan-card, .faq-item {
+            background-color: rgba(26, 26, 26, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .feature-card:hover, .plan-card:hover { transform: translateY(-5px); border-color: rgba(0, 255, 13, 0.5); }
+        .plan-card.popular { border-width: 2px; border-color: #00FF0D; transform: scale(1.05); }
+        
+        .faq-question { cursor: pointer; }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.visible{visibility:visible}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.left-0{left:0px}.left-1\/2{left:50%}.top-0{top:0px}.z-10{z-index:10}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-16{margin-bottom:4rem}.mb-2{margin-bottom:0.5rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.ml-2{margin-left:0.5rem}.ml-4{margin-left:1rem}.mr-2{margin-right:0.5rem}.mt-1{margin-top:0.25rem}.mt-10{margin-top:2.5rem}.mt-12{margin-top:3rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}.block{display:block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.h-16{height:4rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-8{height:2rem}.h-full{height:100%}.w-16{width:4rem}.w-5{width:1.25rem}.w-6{width:1.5rem}.w-auto{width:auto}.w-full{width:100%}.max-w-2xl{max-width:42rem}.max-w-3xl{max-width:48rem}.max-w-4xl{max-width:56rem}.max-w-6xl{max-width:72rem}.flex-shrink-0{flex-shrink:0}.flex-grow{flex-grow:1}.-translate-x-1\/2{--tw-translate-x:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.-translate-y-1\/2{--tw-translate-y:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.rotate-45{--tw-rotate:45deg;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-12{gap:3rem}.gap-8{gap:2rem}.gap-x-8{column-gap:2rem}.space-x-3 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.75rem * var(--tw-space-x-reverse));margin-left:calc(0.75rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-8 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(2rem * var(--tw-space-x-reverse));margin-left:calc(2rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-gray-800{--tw-border-opacity:1;border-color:rgb(31 41 55 / var(--tw-border-opacity, 1))}.border-green-500\/30{border-color:rgb(34 197 94 / 0.3)}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}.bg-gray-700{--tw-bg-opacity:1;background-color:rgb(55 65 81 / var(--tw-bg-opacity, 1))}.bg-gray-900{--tw-bg-opacity:1;background-color:rgb(17 24 39 / var(--tw-bg-opacity, 1))}.bg-green-500\/10{background-color:rgb(34 197 94 / 0.1)}.bg-green-900\/20{background-color:rgb(20 83 45 / 0.2)}.bg-green-900\/50{background-color:rgb(20 83 45 / 0.5)}.bg-opacity-20{--tw-bg-opacity:0.2}.bg-opacity-80{--tw-bg-opacity:0.8}.bg-opacity-90{--tw-bg-opacity:0.9}.p-3{padding:0.75rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.px-8{padding-left:2rem;padding-right:2rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-12{padding-top:3rem;padding-bottom:3rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-20{padding-top:5rem;padding-bottom:5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pb-20{padding-bottom:5rem}.pb-6{padding-bottom:1.5rem}.pt-2{padding-top:0.5rem}.pt-3{padding-top:0.75rem}.pt-32{padding-top:8rem}.text-left{text-align:left}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-5xl{font-size:3rem;line-height:1}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-black{font-weight:900}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-tight{line-height:1.25}.tracking-tight{letter-spacing:-0.025em}.tracking-tighter{letter-spacing:-0.05em}.tracking-widest{letter-spacing:0.1em}.text-black{--tw-text-opacity:1;color:rgb(0 0 0 / var(--tw-text-opacity, 1))}.text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.text-green-400{--tw-text-opacity:1;color:rgb(74 222 128 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.opacity-50{opacity:0.5}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.grayscale{--tw-grayscale:grayscale(100%);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur-lg{--tw-backdrop-blur:blur(16px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.duration-500{transition-duration:500ms}.ease-in-out{transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1)}.hover\:bg-gray-600:hover{--tw-bg-opacity:1;background-color:rgb(75 85 99 / var(--tw-bg-opacity, 1))}.hover\:underline:hover{-webkit-text-decoration-line:underline;text-decoration-line:underline}@media (min-width: 640px){.sm\:block{display:block}}@media (min-width: 768px){.md\:block{display:block}.md\:flex{display:flex}.md\:hidden{display:none}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:gap-16{gap:4rem}.md\:gap-x-12{column-gap:3rem}.md\:p-6{padding:1.5rem}.md\:px-10{padding-left:2.5rem;padding-right:2.5rem}.md\:py-32{padding-top:8rem;padding-bottom:8rem}.md\:py-4{padding-top:1rem;padding-bottom:1rem}.md\:pb-32{padding-bottom:8rem}.md\:pt-48{padding-top:12rem}.md\:text-5xl{font-size:3rem;line-height:1}.md\:text-6xl{font-size:3.75rem;line-height:1}.md\:text-xl{font-size:1.25rem;line-height:1.75rem}}@media (min-width: 1024px){.lg\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.lg\:text-7xl{font-size:4.5rem;line-height:1}}</style><style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.visible{visibility:visible}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.left-0{left:0px}.left-1\/2{left:50%}.top-0{top:0px}.z-10{z-index:10}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-16{margin-bottom:4rem}.mb-2{margin-bottom:0.5rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.ml-2{margin-left:0.5rem}.ml-4{margin-left:1rem}.mr-2{margin-right:0.5rem}.mt-1{margin-top:0.25rem}.mt-10{margin-top:2.5rem}.mt-12{margin-top:3rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}.block{display:block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.h-16{height:4rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-8{height:2rem}.h-full{height:100%}.w-16{width:4rem}.w-5{width:1.25rem}.w-6{width:1.5rem}.w-auto{width:auto}.w-full{width:100%}.max-w-2xl{max-width:42rem}.max-w-3xl{max-width:48rem}.max-w-4xl{max-width:56rem}.max-w-6xl{max-width:72rem}.flex-shrink-0{flex-shrink:0}.flex-grow{flex-grow:1}.-translate-x-1\/2{--tw-translate-x:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.-translate-y-1\/2{--tw-translate-y:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.rotate-45{--tw-rotate:45deg;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.flex-col{flex-direction:column}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-between{justify-content:space-between}.gap-12{gap:3rem}.gap-8{gap:2rem}.space-x-3 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.75rem * var(--tw-space-x-reverse));margin-left:calc(0.75rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-8 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(2rem * var(--tw-space-x-reverse));margin-left:calc(2rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-gray-800{--tw-border-opacity:1;border-color:rgb(31 41 55 / var(--tw-border-opacity, 1))}.border-green-500\/30{border-color:rgb(34 197 94 / 0.3)}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}.bg-gray-700{--tw-bg-opacity:1;background-color:rgb(55 65 81 / var(--tw-bg-opacity, 1))}.bg-gray-900{--tw-bg-opacity:1;background-color:rgb(17 24 39 / var(--tw-bg-opacity, 1))}.bg-green-500\/10{background-color:rgb(34 197 94 / 0.1)}.bg-green-900\/20{background-color:rgb(20 83 45 / 0.2)}.bg-green-900\/50{background-color:rgb(20 83 45 / 0.5)}.bg-opacity-20{--tw-bg-opacity:0.2}.bg-opacity-80{--tw-bg-opacity:0.8}.bg-opacity-90{--tw-bg-opacity:0.9}.p-3{padding:0.75rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.px-8{padding-left:2rem;padding-right:2rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-20{padding-top:5rem;padding-bottom:5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pb-20{padding-bottom:5rem}.pb-6{padding-bottom:1.5rem}.pt-2{padding-top:0.5rem}.pt-3{padding-top:0.75rem}.pt-32{padding-top:8rem}.text-left{text-align:left}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-5xl{font-size:3rem;line-height:1}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-black{font-weight:900}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-tight{line-height:1.25}.tracking-tight{letter-spacing:-0.025em}.tracking-tighter{letter-spacing:-0.05em}.text-black{--tw-text-opacity:1;color:rgb(0 0 0 / var(--tw-text-opacity, 1))}.text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.text-green-400{--tw-text-opacity:1;color:rgb(74 222 128 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.backdrop-blur-lg{--tw-backdrop-blur:blur(16px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.duration-500{transition-duration:500ms}.ease-in-out{transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1)}.hover\:bg-gray-600:hover{--tw-bg-opacity:1;background-color:rgb(75 85 99 / var(--tw-bg-opacity, 1))}.hover\:underline:hover{-webkit-text-decoration-line:underline;text-decoration-line:underline}@media (min-width: 640px){.sm\:block{display:block}}@media (min-width: 768px){.md\:block{display:block}.md\:flex{display:flex}.md\:hidden{display:none}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:gap-16{gap:4rem}.md\:p-6{padding:1.5rem}.md\:px-10{padding-left:2.5rem;padding-right:2.5rem}.md\:py-32{padding-top:8rem;padding-bottom:8rem}.md\:py-4{padding-top:1rem;padding-bottom:1rem}.md\:pb-32{padding-bottom:8rem}.md\:pt-48{padding-top:12rem}.md\:text-5xl{font-size:3rem;line-height:1}.md\:text-6xl{font-size:3.75rem;line-height:1}.md\:text-xl{font-size:1.25rem;line-height:1.75rem}}@media (min-width: 1024px){.lg\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.lg\:text-7xl{font-size:4.5rem;line-height:1}}</style><style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.visible{visibility:visible}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.left-0{left:0px}.left-1\/2{left:50%}.top-0{top:0px}.z-10{z-index:10}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-16{margin-bottom:4rem}.mb-2{margin-bottom:0.5rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.ml-2{margin-left:0.5rem}.ml-4{margin-left:1rem}.mr-2{margin-right:0.5rem}.mt-1{margin-top:0.25rem}.mt-10{margin-top:2.5rem}.mt-12{margin-top:3rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}.block{display:block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.h-16{height:4rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-8{height:2rem}.h-full{height:100%}.w-16{width:4rem}.w-5{width:1.25rem}.w-6{width:1.5rem}.w-auto{width:auto}.w-full{width:100%}.max-w-2xl{max-width:42rem}.max-w-3xl{max-width:48rem}.max-w-4xl{max-width:56rem}.max-w-6xl{max-width:72rem}.flex-shrink-0{flex-shrink:0}.flex-grow{flex-grow:1}.-translate-x-1\/2{--tw-translate-x:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.-translate-y-1\/2{--tw-translate-y:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.rotate-45{--tw-rotate:45deg;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.flex-col{flex-direction:column}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-between{justify-content:space-between}.gap-12{gap:3rem}.gap-8{gap:2rem}.space-x-3 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.75rem * var(--tw-space-x-reverse));margin-left:calc(0.75rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-8 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(2rem * var(--tw-space-x-reverse));margin-left:calc(2rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-gray-800{--tw-border-opacity:1;border-color:rgb(31 41 55 / var(--tw-border-opacity, 1))}.border-green-500\/30{border-color:rgb(34 197 94 / 0.3)}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}.bg-gray-700{--tw-bg-opacity:1;background-color:rgb(55 65 81 / var(--tw-bg-opacity, 1))}.bg-gray-900{--tw-bg-opacity:1;background-color:rgb(17 24 39 / var(--tw-bg-opacity, 1))}.bg-green-500\/10{background-color:rgb(34 197 94 / 0.1)}.bg-green-900\/20{background-color:rgb(20 83 45 / 0.2)}.bg-green-900\/50{background-color:rgb(20 83 45 / 0.5)}.bg-opacity-20{--tw-bg-opacity:0.2}.bg-opacity-80{--tw-bg-opacity:0.8}.bg-opacity-90{--tw-bg-opacity:0.9}.p-3{padding:0.75rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.px-8{padding-left:2rem;padding-right:2rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-20{padding-top:5rem;padding-bottom:5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pb-20{padding-bottom:5rem}.pb-6{padding-bottom:1.5rem}.pt-2{padding-top:0.5rem}.pt-3{padding-top:0.75rem}.pt-32{padding-top:8rem}.text-left{text-align:left}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-5xl{font-size:3rem;line-height:1}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-black{font-weight:900}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-tight{line-height:1.25}.tracking-tight{letter-spacing:-0.025em}.tracking-tighter{letter-spacing:-0.05em}.text-black{--tw-text-opacity:1;color:rgb(0 0 0 / var(--tw-text-opacity, 1))}.text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.text-green-400{--tw-text-opacity:1;color:rgb(74 222 128 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.backdrop-blur-lg{--tw-backdrop-blur:blur(16px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.duration-500{transition-duration:500ms}.ease-in-out{transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1)}.hover\:bg-gray-600:hover{--tw-bg-opacity:1;background-color:rgb(75 85 99 / var(--tw-bg-opacity, 1))}.hover\:underline:hover{-webkit-text-decoration-line:underline;text-decoration-line:underline}@media (min-width: 640px){.sm\:block{display:block}}@media (min-width: 768px){.md\:block{display:block}.md\:flex{display:flex}.md\:hidden{display:none}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:gap-16{gap:4rem}.md\:p-6{padding:1.5rem}.md\:px-10{padding-left:2.5rem;padding-right:2.5rem}.md\:py-32{padding-top:8rem;padding-bottom:8rem}.md\:py-4{padding-top:1rem;padding-bottom:1rem}.md\:pb-32{padding-bottom:8rem}.md\:pt-48{padding-top:12rem}.md\:text-5xl{font-size:3rem;line-height:1}.md\:text-6xl{font-size:3.75rem;line-height:1}.md\:text-xl{font-size:1.25rem;line-height:1.75rem}}@media (min-width: 1024px){.lg\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.lg\:text-7xl{font-size:4.5rem;line-height:1}}</style></head>
+<body class="antialiased">
+
+    <!-- Cabeçalho -->
+    <header x-data="{ open: false }" class="fixed top-0 left-0 w-full z-50 bg-black bg-opacity-80 backdrop-blur-lg border-b border-gray-800" draggable="false">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-3 logo-container" draggable="false">
+                <img src="https://v4mundim.com/wp-content/uploads/2025/09/logo-icon-1.svg" alt="Logo CatalystChat" class="h-8 w-auto logo-icon" draggable="false" contenteditable="false">
+                <span class="text-2xl font-bold text-white tracking-tight">CatalystChat</span>
+            </a>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#vantagens" class="text-gray-300 hover:text-catalyst-green transition" draggable="false">Vantagens</a>
+                <a href="#pricing" class="text-gray-300 hover:text-catalyst-green transition" draggable="false">Planos</a>
+                <a href="#comparativo" class="text-gray-300 hover:text-catalyst-green transition" draggable="false">Comparativo</a>
+                <a href="#faq" class="text-gray-300 hover:text-catalyst-green transition" draggable="false">FAQ</a>
+            </nav>
+            <div class="flex items-center">
+                 <a href="#contact" class="hidden sm:block cta-button bg-catalyst-green text-black font-bold py-2 px-6 rounded-lg shadow-lg" draggable="false">Falar com Especialista</a>
+                 <button @click="open = !open" class="md:hidden ml-4 text-white">
+                    <svg x-show="!open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    <svg x-show="open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                 </button>
+            </div>
+        </div>
+        <!-- Menu Mobile -->
+        <div x-show="open" @click.away="open = false" class="md:hidden bg-black bg-opacity-90" style="display: none;">
+             <a href="#vantagens" class="block text-center py-3 px-6 text-gray-300 hover:text-catalyst-green transition" draggable="false">Vantagens</a>
+             <a href="#pricing" class="block text-center py-3 px-6 text-gray-300 hover:text-catalyst-green transition" draggable="false">Planos</a>
+             <a href="#comparativo" class="block text-center py-3 px-6 text-gray-300 hover:text-catalyst-green transition" draggable="false">Comparativo</a>
+             <a href="#faq" class="block text-center py-3 px-6 text-gray-300 hover:text-catalyst-green transition" draggable="false">FAQ</a>
+             <div class="p-4"><a href="#contact" class="block w-full text-center cta-button bg-catalyst-green text-black font-bold py-3 px-6 rounded-lg shadow-lg" draggable="false">Falar com Especialista</a></div>
+        </div>
+    </header>
+
+    <main draggable="false" class="">
+        <!-- Seção Hero -->
+        <section class="hero-bg pt-32 pb-20 md:pt-48 md:pb-32 text-center relative">
+            <div class="tech-lines"><div class="tech-line tech-line-1"></div><div class="tech-line tech-line-2"></div><div class="tech-line tech-line-3"></div><div class="tech-line tech-line-4"></div></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="fade-in inline-flex items-center bg-green-900/50 text-catalyst-green border border-green-500/30 rounded-full px-4 py-1 mb-6 visible">
+                    <svg xmlns="http://www.w.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    <span>Solução Premiada 2024</span>
+                </div>
+                <h1 class="fade-in text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight tracking-tighter visible" style="transition-delay: 100ms;">
+                    Sua equipe de vendas focada <br> apenas em <span class="catalyst-green">leads qualificados.</span>
+                </h1>
+                <p class="fade-in mt-6 text-lg md:text-xl text-gray-300 max-w-3xl mx-auto visible" style="transition-delay: 250ms;">
+                   Nossa IA faz o primeiro contato, qualifica cada lead com precisão e entrega para sua equipe apenas as oportunidades reais. Chega de perder tempo com contatos frios.
+                </p>
+                <div class="fade-in mt-10 visible" style="transition-delay: 400ms;">
+                    <a href="#contact" class="cta-button bg-catalyst-green text-black font-bold text-lg py-3 px-8 md:py-4 md:px-10 rounded-lg shadow-lg" draggable="false">
+                        Agendar Demonstração Gratuita
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nova Seção Unifique -->
+        <section class="py-20 md:py-32">
+            <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+                <div class="fade-in visible">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white leading-tight">Unifique todos os canais. Simplifique seu processo.</h2>
+                    <p class="text-gray-400 mt-6 text-lg">Conecte WhatsApp, Instagram, Facebook, Site e E-mail em uma única plataforma inteligente e transforme seu relacionamento com clientes. Tenha a visão 360º de cada lead e nunca mais perca uma oportunidade por desorganização.</p>
+                </div>
+                <div class="fade-in visible" style="transition-delay: 200ms;">
+                    <img src="https://v4mundim.com/wp-content/uploads/2025/09/Captura-de-Tela-2025-09-04-as-11.22.56.jpg" alt="Print da tela do CatalystChat mostrando a caixa de entrada unificada com múltiplos canais" class="rounded-xl shadow-2xl border border-gray-800" draggable="false" contenteditable="false">
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Vantagens Exclusivas -->
+        <section id="vantagens" class="py-20 md:py-32 bg-black bg-opacity-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="fade-in text-3xl md:text-5xl font-bold text-white visible">Vantagens que colocam você <span class="catalyst-green">à frente.</span></h2>
+                    <p class="fade-in mt-4 text-gray-400 max-w-2xl mx-auto visible">Tudo que sua operação precisa para escalar, em um só lugar.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Vantagem 1 -->
+                    <div class="fade-in feature-card rounded-xl p-8 visible">
+                        <div class="bg-green-500/10 inline-flex p-3 rounded-lg mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00FF0D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></div>
+                        <h3 class="text-xl font-bold text-white mb-2">Atendimento Omnichannel</h3>
+                        <p class="text-gray-400">Unifique WhatsApp, Instagram, Facebook, Site e E-mail em uma única caixa de entrada. Tenha a visão 360º do seu cliente, não importa por onde ele fale.</p>
+                    </div>
+                     <!-- Vantagem 2 -->
+                    <div class="fade-in feature-card rounded-xl p-8 visible" style="transition-delay: 100ms;">
+                         <img src="https://placehold.co/100x100/1a1a1a/00ff0d?text=IA+SDR" alt="Ilustração da IA SDR qualificando leads" class="rounded-lg mb-4 w-16 h-16" draggable="false">
+                        <h3 class="text-xl font-bold text-white mb-2">IA SDR para Qualificação</h3>
+                        <p class="text-gray-400">Nossa IA qualifica leads 24/7, usa RAG para dar respostas precisas, entende o histórico e só transfere para sua equipe quando a oportunidade é real.</p>
+                    </div>
+                     <!-- Vantagem 3 -->
+                    <div class="fade-in feature-card rounded-xl p-8 visible" style="transition-delay: 200ms;">
+                        <div class="bg-green-500/10 inline-flex p-3 rounded-lg mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00FF0D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+                        <h3 class="text-xl font-bold text-white mb-2">Múltiplos Atendentes no WhatsApp</h3>
+                        <p class="text-gray-400">Sua equipe inteira atendendo em um único número de WhatsApp oficial, de forma organizada, com distribuição de conversas e total controle gerencial.</p>
+                    </div>
+                     <!-- Vantagem 4 -->
+                    <div class="fade-in feature-card rounded-xl p-8 visible" style="transition-delay: 300ms;">
+                        <div class="bg-green-500/10 inline-flex p-3 rounded-lg mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00FF0D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="10" x2="6" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="18" y1="18" x2="6" y2="18"></line></svg></div>
+                        <h3 class="text-xl font-bold text-white mb-2">Automações Inteligentes</h3>
+                        <p class="text-gray-400">Crie fluxos de trabalho que economizam tempo. Direcione conversas, aplique etiquetas, envie respostas e resolva tickets automaticamente com base em regras personalizadas.</p>
+                    </div>
+                     <!-- Vantagem 5 -->
+                    <div class="fade-in feature-card rounded-xl p-8 visible" style="transition-delay: 400ms;">
+                        <div class="bg-green-500/10 inline-flex p-3 rounded-lg mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00FF0D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
+                        <h3 class="text-xl font-bold text-white mb-2">Relatórios Completos</h3>
+                        <p class="text-gray-400">Tome decisões baseadas em dados. Acompanhe o tempo de resposta, volume de atendimentos, performance da equipe, nível de satisfação e muito mais.</p>
+                    </div>
+                     <!-- Vantagem 6 -->
+                    <div class="fade-in feature-card rounded-xl p-8 visible" style="transition-delay: 500ms;">
+                        <div class="bg-green-500/10 inline-flex p-3 rounded-lg mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00FF0D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></div>
+                        <h3 class="text-xl font-bold text-white mb-2">Campanhas e Disparos em Massa</h3>
+                        <p class="text-gray-400">Envie mensagens ativas e notificações para sua base de clientes via WhatsApp e E-mail. Perfeito para comunicar novidades, promoções ou recuperar carrinhos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção de Planos -->
+        <section id="pricing" class="py-20 md:py-32">
+             <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="fade-in text-3xl md:text-5xl font-bold text-white visible">Planos desenhados para o seu <span class="catalyst-green">crescimento</span></h2>
+                    <p class="fade-in mt-4 text-gray-400 max-w-2xl mx-auto visible">Escolha a solução que se adapta à sua necessidade. Sem surpresas, com todo o poder do CatalystChat e nosso suporte especializado.</p>
+                </div>
+                <div class="grid lg:grid-cols-3 gap-8 items-start max-w-6xl mx-auto">
+                    <!-- Plano Básico -->
+                    <div class="fade-in plan-card rounded-xl p-8 h-full flex flex-col visible">
+                        <h3 class="text-xl font-bold text-white">Básico</h3>
+                        <p class="text-gray-400 mt-1 mb-6">O ponto de partida ideal para organizar e centralizar seu atendimento.</p>
+                        <div class="mb-6"><span class="text-5xl font-extrabold text-white">R$199</span><span class="text-gray-400">/mês</span></div>
+                        <a href="#contact" class="w-full text-center cta-button bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg" draggable="false">Começar Agora</a>
+                        <ul class="mt-8 space-y-4 text-gray-300 flex-grow">
+                            <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-catalyst-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Até <strong>2 usuários</strong> inclusos</span></li>
+                             <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-catalyst-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Até <strong>2 Caixas de Entrada</strong></span></li>
+                            <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-catalyst-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Canais: Site, Email, Facebook, Instagram</span></li>
+                            <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-catalyst-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>CRM de Contatos Unificado</span></li>
+                            <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-catalyst-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Respostas Prontas e Etiquetas</span></li>
+                        </ul>
+                    </div>
+                    <!-- Plano Intermediário -->
+                    <div class="fade-in plan-card popular rounded-xl p-8 h-full flex flex-col relative visible" style="transition-delay: 200ms;">
+                        <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-catalyst-green text-black text-xs font-bold px-4 py-1 rounded-full uppercase">Mais Popular</div>
+                        <h3 class="text-xl font-bold text-white">Intermediário</h3>
+                        <p class="text-gray-400 mt-1 mb-6">A escolha inteligente para quem busca eficiência e um atendimento de ponta com IA.</p>
+                        <div class="mb-6"><span class="text-5xl font-extrabold text-white">R$499</span><span class="text-gray-400">/mês</span></div>
+                        <a href="#contact" class="w-full text-center cta-button bg-catalyst-green text-black font-bold py-3 px-6 rounded-lg" draggable="false">Fale com um Especialista</a>
+                        <ul class="mt-8 space-y-4 text-gray-300 flex-grow">
+                             <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-catalyst-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Tudo do plano Básico, e mais:</span></li>
+                            <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-catalyst-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Até <strong>5 usuários</strong> inclusos</span></li>
+                             <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-catalyst-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Até <strong>5 Caixas de Entrada</strong></span></li>
+                            <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-catalyst-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Canal <strong>WhatsApp API Oficial</strong></span></li>
+                            <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-catalyst-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>IA SDR para Qualificação de Leads</strong></span></li>
+                             <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-catalyst-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Automações e Macros</span></li>
+                             <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-catalyst-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Help Center (Base de Conhecimento)</span></li>
+                        </ul>
+                    </div>
+                    <!-- Plano Avançado -->
+                    <div class="fade-in plan-card rounded-xl p-8 h-full flex flex-col visible" style="transition-delay: 400ms;">
+                        <h3 class="text-xl font-bold text-white">Avançado</h3>
+                        <p class="text-gray-400 mt-1 mb-6">A solução definitiva para operações de grande escala que exigem total controle.</p>
+                        <div class="mb-6"><span class="text-5xl font-extrabold text-white">R$899</span><span class="text-gray-400">/mês</span></div>
+                        <a href="#contact" class="w-full text-center cta-button bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg" draggable="false">Solicitar Contato</a>
+                        <ul class="mt-8 space-y-4 text-gray-300 flex-grow">
+                             <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-catalyst-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Tudo do plano Intermediário, e mais:</span></li>
+                            <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-catalyst-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Até <strong>10 usuários</strong> inclusos</span></li>
+                             <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-catalyst-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Caixas de Entrada <strong>Ilimitadas</strong></span></li>
+                            <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-catalyst-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>SLA e Distribuição Avançada</span></li>
+                            <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-catalyst-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Logs de Auditoria e Funções Customizadas</span></li>
+                            <li class="flex items-start"><svg class="w-5 h-5 mr-2 text-catalyst-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Canal de Voz e Campanhas</span></li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="fade-in mt-12 text-center text-gray-400 visible">
+                    <p>Precisa de mais? Oferecemos planos empresariais totalmente personalizados. <a href="#contact" class="catalyst-green font-semibold hover:underline" draggable="false">Fale conosco</a>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Comparativo -->
+        <section id="comparativo" class="py-20 md:py-32 bg-black bg-opacity-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="fade-in text-3xl md:text-5xl font-bold text-white visible">Compare e <span class="catalyst-green">Comprove</span></h2>
+                    <p class="fade-in mt-4 text-gray-400 max-w-2xl mx-auto visible">Veja por que o CatalystChat é a evolução das plataformas de atendimento tradicionais.</p>
+                </div>
+                <!-- Container para a Tabela Responsiva -->
+                <div class="fade-in max-w-4xl mx-auto visible">
+                    <!-- Tabela para Desktop -->
+                    <div class="hidden md:block bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
+                        <table class="w-full text-left">
+                            <thead class="border-b border-gray-800">
+                                <tr>
+                                    <th class="p-4 md:p-6 text-lg font-semibold">Funcionalidade</th>
+                                    <th class="p-4 md:p-6 text-lg font-semibold text-center">Plataformas Tradicionais</th>
+                                    <th class="p-4 md:p-6 text-lg font-semibold text-center bg-green-900/20">CatalystChat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-800">
+                                    <td class="p-4 md:p-6 font-medium">IA SDR para Qualificação de Leads</td>
+                                    <td class="p-4 md:p-6 text-center text-2xl">❌</td>
+                                    <td class="p-4 md:p-6 text-center text-2xl bg-green-900/20 text-green-400">✅</td>
+                                </tr>
+                                <tr class="border-b border-gray-800">
+                                    <td class="p-4 md:p-6 font-medium">Setup e Onboarding Gerenciado</td>
+                                    <td class="p-4 md:p-6 text-center text-gray-400">Complexo (Faça você mesmo)</td>
+                                    <td class="p-4 md:p-6 text-center bg-green-900/20 font-semibold">Completo e Incluso</td>
+                                </tr>
+                                <tr class="border-b border-gray-800">
+                                    <td class="p-4 md:p-6 font-medium">WhatsApp API Oficial com Múltiplos Agentes</td>
+                                    <td class="p-4 md:p-6 text-center text-gray-400">Limitado ou Custo Adicional Elevado</td>
+                                    <td class="p-4 md:p-6 text-center bg-green-900/20 font-semibold">Nativo e Escalável</td>
+                                </tr>
+                                <tr class="border-b border-gray-800">
+                                    <td class="p-4 md:p-6 font-medium">Suporte com Especialista Dedicado</td>
+                                    <td class="p-4 md:p-6 text-center text-2xl">❌</td>
+                                    <td class="p-4 md:p-6 text-center text-2xl bg-green-900/20 text-green-400">✅</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 md:p-6 font-medium">Custo-Benefício</td>
+                                    <td class="p-4 md:p-6 text-center text-gray-400">Elevado e com taxas ocultas</td>
+                                    <td class="p-4 md:p-6 text-center bg-green-900/20 font-semibold">Transparente e Justo</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                     <!-- Cards para Mobile -->
+                    <div class="md:hidden space-y-4">
+                        <!-- Card 1 -->
+                        <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+                            <h4 class="font-semibold text-white mb-3">IA SDR para Qualificação de Leads</h4>
+                            <div class="flex justify-between items-center border-t border-gray-800 pt-3">
+                                <span class="text-gray-400">Tradicionais: <span class="text-xl ml-2">❌</span></span>
+                                <span class="font-bold catalyst-green">CatalystChat: <span class="text-xl ml-2">✅</span></span>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+                            <h4 class="font-semibold text-white mb-3">Setup e Onboarding Gerenciado</h4>
+                            <div class="flex justify-between items-center border-t border-gray-800 pt-3">
+                                <span class="text-gray-400 text-sm">Tradicionais: Complexo</span>
+                                <span class="font-bold catalyst-green text-sm">CatalystChat: Incluso</span>
+                            </div>
+                        </div>
+                         <!-- Card 3 -->
+                        <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+                            <h4 class="font-semibold text-white mb-3">WhatsApp API com Múltiplos Agentes</h4>
+                            <div class="flex justify-between items-center border-t border-gray-800 pt-3">
+                                <span class="text-gray-400 text-sm">Tradicionais: Limitado</span>
+                                <span class="font-bold catalyst-green text-sm">CatalystChat: Escalável</span>
+                            </div>
+                        </div>
+                         <!-- Card 4 -->
+                        <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+                            <h4 class="font-semibold text-white mb-3">Suporte com Especialista Dedicado</h4>
+                            <div class="flex justify-between items-center border-t border-gray-800 pt-3">
+                                <span class="text-gray-400">Tradicionais: <span class="text-xl ml-2">❌</span></span>
+                                <span class="font-bold catalyst-green">CatalystChat: <span class="text-xl ml-2">✅</span></span>
+                            </div>
+                        </div>
+                         <!-- Card 5 -->
+                        <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+                            <h4 class="font-semibold text-white mb-3">Custo-Benefício</h4>
+                            <div class="flex justify-between items-center border-t border-gray-800 pt-3">
+                                <span class="text-gray-400 text-sm">Tradicionais: Elevado</span>
+                                <span class="font-bold catalyst-green text-sm">CatalystChat: Justo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção FAQ -->
+        <section id="faq" class="py-20 md:py-32">
+            <div class="container mx-auto px-6 max-w-3xl">
+                <div class="text-center mb-16">
+                    <h2 class="fade-in text-3xl md:text-5xl font-bold text-white visible">Perguntas <span class="catalyst-green">Frequentes</span></h2>
+                </div>
+                <div class="space-y-4" x-data="{ open: 1 }">
+                    <!-- FAQ 1 -->
+                    <div class="fade-in faq-item rounded-xl visible">
+                        <div @click="open = (open === 1 ? 0 : 1)" class="faq-question p-6 flex justify-between items-center">
+                            <h3 class="text-lg font-semibold text-white">Como a IA qualifica os leads?</h3>
+                            <svg class="w-6 h-6 transform transition-transform duration-300 rotate-45" :class="{'rotate-45': open === 1}" fill="none" stroke="#00FF0D" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        </div>
+                        <div class="overflow-hidden transition-all duration-500 ease-in-out" :style="open === 1 ? { maxHeight: $el.scrollHeight + 'px' } : { maxHeight: '0px' }" style="max-height: 152px;">
+                           <div class="px-6 pb-6 pt-2 text-gray-400">
+                                <p>Nossa IA SDR inicia a conversa, faz perguntas-chave para entender a necessidade e o potencial do lead, e cruza essas informações com sua base de dados (RAG). Se o lead atende aos critérios pré-definidos (orçamento, urgência, etc.), ela o transfere para um vendedor humano com todo o histórico, garantindo que sua equipe só invista tempo em oportunidades reais.</p>
+                           </div>
+                        </div>
+                    </div>
+                    <!-- FAQ 2 -->
+                     <div class="fade-in faq-item rounded-xl visible">
+                        <div @click="open = (open === 2 ? 0 : 2)" class="faq-question p-6 flex justify-between items-center">
+                            <h3 class="text-lg font-semibold text-white">Preciso ter uma empresa para usar o WhatsApp API Oficial?</h3>
+                             <svg class="w-6 h-6 transform transition-transform duration-300" :class="{'rotate-45': open === 2}" fill="none" stroke="#00FF0D" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        </div>
+                         <div class="overflow-hidden transition-all duration-500 ease-in-out" :style="open === 2 ? { maxHeight: $el.scrollHeight + 'px' } : { maxHeight: '0px' }" style="max-height: 0px;">
+                           <div class="px-6 pb-6 pt-2 text-gray-400">
+                               <p>Sim. O WhatsApp API Oficial é um produto da Meta destinado a empresas. É necessário ter um CNPJ válido e uma página no Facebook Business (Gerenciador de Negócios da Meta). Mas não se preocupe, nós auxiliamos em todo o processo de verificação e configuração.</p>
+                           </div>
+                        </div>
+                    </div>
+                    <!-- FAQ 3 -->
+                    <div class="fade-in faq-item rounded-xl visible">
+                        <div @click="open = (open === 3 ? 0 : 3)" class="faq-question p-6 flex justify-between items-center">
+                            <h3 class="text-lg font-semibold text-white">A IA substitui meus atendentes?</h3>
+                             <svg class="w-6 h-6 transform transition-transform duration-300" :class="{'rotate-45': open === 3}" fill="none" stroke="#00FF0D" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        </div>
+                        <div class="overflow-hidden transition-all duration-500 ease-in-out" :style="open === 3 ? { maxHeight: $el.scrollHeight + 'px' } : { maxHeight: '0px' }" style="max-height: 0px;">
+                           <div class="px-6 pb-6 pt-2 text-gray-400">
+                               <p>De forma alguma. Nossa filosofia é de "IA Copiloto". O CatalystChat não foi criado para substituir humanos, mas para potencializá-los. A IA cuida das tarefas repetitivas e analíticas, liberando sua equipe para focar na parte estratégica e humana do atendimento: resolver problemas complexos e criar relacionamentos com os clientes.</p>
+                           </div>
+                        </div>
+                    </div>
+                     <!-- FAQ 4 -->
+                    <div class="fade-in faq-item rounded-xl visible">
+                        <div @click="open = (open === 4 ? 0 : 4)" class="faq-question p-6 flex justify-between items-center">
+                            <h3 class="text-lg font-semibold text-white">Existe contrato de fidelidade?</h3>
+                             <svg class="w-6 h-6 transform transition-transform duration-300" :class="{'rotate-45': open === 4}" fill="none" stroke="#00FF0D" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        </div>
+                        <div class="overflow-hidden transition-all duration-500 ease-in-out" :style="open === 4 ? { maxHeight: $el.scrollHeight + 'px' } : { maxHeight: '0px' }" style="max-height: 0px;">
+                           <div class="px-6 pb-6 pt-2 text-gray-400">
+                               <p>Não. Nossos planos são mensais e você pode cancelar quando quiser, sem multas ou burocracia. Acreditamos que a melhor forma de manter um cliente é através de resultados e de um serviço excepcional, não por amarras contratuais.</p>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção CTA Final -->
+        <section id="contact" class="py-20 md:py-32">
+             <div class="container mx-auto px-6 text-center">
+                 <h2 class="fade-in text-3xl md:text-5xl font-bold text-white visible">Vamos conversar sobre como o <span class="catalyst-green">CatalystChat</span> pode acelerar seus resultados?</h2>
+                 <p class="fade-in mt-4 text-gray-400 max-w-2xl mx-auto visible">Agende uma demonstração gratuita e sem compromisso. Nossa equipe vai entender seu desafio e mostrar na prática como nossa solução pode transformar seu atendimento e suas vendas.</p>
+                 <div class="fade-in mt-10 visible" style="transition-delay: 200ms;">
+                    <a href="#" class="cta-button bg-catalyst-green text-black font-bold text-lg py-3 px-8 md:py-4 md:px-10 rounded-lg shadow-lg" draggable="false">
+                        Falar com um Especialista Agora
+                    </a>
+                </div>
+             </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="border-t border-gray-800 py-8">
+        <div class="container mx-auto px-6 text-center text-gray-500">
+            <p>© 2024 CatalystChat. Uma solução orgulhosamente desenvolvida em parceria com a V4 Company.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        });
+    </script>
+
+
+
+</body></html>
