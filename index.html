@@ -98,7 +98,6 @@
             </a>
             <nav class="hidden md:flex items-center space-x-8">
                 <a href="#features" class="text-gray-300 hover:text-catalyst-red transition">Funcionalidades</a>
-                <a href="#pricing" class="text-gray-300 hover:text-catalyst-red transition">Planos</a>
                 <a href="#comparativo" class="text-gray-300 hover:text-catalyst-red transition">Comparativo</a>
                 <a href="#faq" class="text-gray-300 hover:text-catalyst-red transition">FAQ</a>
             </nav>
@@ -112,7 +111,6 @@
         <!-- Menu Mobile -->
         <div x-show="open" @click.away="open = false" class="md:hidden bg-black bg-opacity-90">
              <a href="#features" class="block text-center py-3 px-6 text-gray-300 hover:text-catalyst-red transition">Funcionalidades</a>
-             <a href="#pricing" class="block text-center py-3 px-6 text-gray-300 hover:text-catalyst-red transition">Planos</a>
              <a href="#comparativo" class="block text-center py-3 px-6 text-gray-300 hover:text-catalyst-red transition">Comparativo</a>
              <a href="#faq" class="block text-center py-3 px-6 text-gray-300 hover:text-catalyst-red transition">FAQ</a>
         </div>
@@ -350,136 +348,7 @@
             </div>
         </section>
         
-        <!-- Seção de Planos -->
-        <section id="pricing" class="py-20 md:py-32 bg-black bg-opacity-20">
-             <div class="container mx-auto px-6" x-data="{
-                billingCycle: 'semiannual',
-                prices: { basic: 250, intermediate: 800, advanced: 1400 },
-                discounts: {
-                    monthly:    { discount: 0,    months: 1, label: 'Pagamento recorrente' },
-                    quarterly:  { discount: 0.10, months: 3, label: 'Economize 10% | Pague em até 3x' },
-                    semiannual: { discount: 0.20, months: 6, label: 'Economize 20% | Pague em até 6x' },
-                    annual:     { discount: 0.35, months: 12, label: 'Economize 35% | Pague em até 12x' }
-                },
-                calculateMonthly(plan) { 
-                    if (this.billingCycle === 'monthly') return this.prices[plan];
-                    return Math.round(this.prices[plan] * (1 - this.discounts[this.billingCycle].discount)); 
-                },
-                calculateTotal(plan) { 
-                    return this.calculateMonthly(plan) * this.discounts[this.billingCycle].months; 
-                }
-             }">
-                <div class="text-center mb-12">
-                    <h2 class="fade-in text-3xl md:text-5xl font-bold text-white">Planos desenhados para o seu <span class="catalyst-red">crescimento</span></h2>
-                    <p class="fade-in mt-4 text-gray-400 max-w-2xl mx-auto">Escolha a solução que se adapta à sua necessidade. Sem surpresas, com todo o poder do CatalystChat e nosso suporte especializado.</p>
-                </div>
-                
-                <!-- Seletor de Ciclo -->
-                <div class="fade-in mb-12 flex justify-center">
-                    <div class="bg-gray-900 border border-gray-800 rounded-lg p-1 inline-grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-1">
-                        <button @click="billingCycle = 'monthly'" :class="billingCycle === 'monthly' ? 'bg-catalyst-red text-white' : 'text-gray-400'" class="px-4 py-2 rounded-md font-semibold transition">Mensal</button>
-                        <button @click="billingCycle = 'quarterly'" :class="billingCycle === 'quarterly' ? 'bg-catalyst-red text-white' : 'text-gray-400'" class="px-4 py-2 rounded-md font-semibold transition">Trimestral</button>
-                        <button @click="billingCycle = 'semiannual'" :class="billingCycle === 'semiannual' ? 'bg-catalyst-red text-white' : 'text-gray-400'" class="px-4 py-2 rounded-md font-semibold transition">Semestral</button>
-                        <button @click="billingCycle = 'annual'" :class="billingCycle === 'annual' ? 'bg-catalyst-red text-white' : 'text-gray-400'" class="px-4 py-2 rounded-md font-semibold transition">Anual</button>
-                    </div>
-                </div>
-
-                <div class="grid lg:grid-cols-4 gap-8 items-start max-w-7xl mx-auto md:grid-cols-2">
-                    <!-- Plano Básico -->
-                    <div class="fade-in plan-card rounded-xl p-6 md:p-8 h-full flex flex-col">
-                        <h3 class="text-lg font-bold text-white">Básico</h3>
-                        <p class="text-gray-400 mt-1 mb-6 text-sm">O ponto de partida ideal para organizar e centralizar seu atendimento.</p>
-                        <div class="mb-2">
-                            <span class="text-4xl font-extrabold text-white" x-text="`R$${calculateMonthly('basic')}`"></span>
-                            <span class="text-gray-400 text-sm">/mês</span>
-                        </div>
-                        <div class="h-10 mb-4">
-                            <span x-show="billingCycle !== 'monthly'" class="text-xs font-semibold catalyst-red bg-red-900/50 px-2 py-1 rounded" x-text="discounts[billingCycle].label"></span>
-                            <p x-show="billingCycle !== 'monthly'" class="text-xs text-gray-400 mt-1" x-text="`Total: R$${calculateTotal('basic').toLocaleString('pt-BR')}`"></p>
-                        </div>
-                        
-                        <ul class="mt-8 space-y-3 text-sm text-gray-300 flex-grow">
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Até <strong>2 usuários</strong></span></li>
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Até <strong>2 Caixas de Entrada</strong></span></li>
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Canais: Site, Email, Redes Sociais</span></li>
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>CRM de Contatos Unificado</span></li>
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg><span>Usuário adicional: <strong>R$69/mês</strong></span></li>
-                        </ul>
-                    </div>
-                    <!-- Plano Intermediário -->
-                    <div class="fade-in plan-card popular rounded-xl p-6 md:p-8 h-full flex flex-col relative" style="transition-delay: 200ms;">
-                        <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-catalyst-red text-white text-xs font-bold px-4 py-1 rounded-full uppercase">Mais Popular</div>
-                        <h3 class="text-lg font-bold text-white">Intermediário</h3>
-                        <p class="text-gray-400 mt-1 mb-6 text-sm">A escolha inteligente para quem busca eficiência e um atendimento de ponta com IA.</p>
-                        <div class="mb-2">
-                           <span class="text-4xl font-extrabold text-white" x-text="`R$${calculateMonthly('intermediate')}`"></span>
-                           <span class="text-gray-400 text-sm">/mês</span>
-                        </div>
-                         <div class="h-10 mb-4">
-                            <span x-show="billingCycle !== 'monthly'" class="text-xs font-semibold catalyst-red bg-red-900/50 px-2 py-1 rounded" x-text="discounts[billingCycle].label"></span>
-                            <p x-show="billingCycle !== 'monthly'" class="text-xs text-gray-400 mt-1" x-text="`Total: R$${calculateTotal('intermediate').toLocaleString('pt-BR')}`"></p>
-                        </div>
-
-                        <ul class="mt-8 space-y-3 text-sm text-gray-300 flex-grow">
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Tudo do plano Básico, e mais:</span></li>
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Até <strong>5 usuários</strong></span></li>
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Até <strong>5 Caixas de Entrada</strong></span></li>
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Canal <strong>WhatsApp API Oficial</strong></span></li>
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>IA SDR para Qualificação de Leads</strong></span></li>
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Automações e Help Center</span></li>
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg><span>Usuário adicional: <strong>R$89/mês</strong></span></li>
-                        </ul>
-                    </div>
-                    <!-- Plano Avançado -->
-                    <div class="fade-in plan-card rounded-xl p-6 md:p-8 h-full flex flex-col" style="transition-delay: 400ms;">
-                        <h3 class="text-lg font-bold text-white">Avançado</h3>
-                        <p class="text-gray-400 mt-1 mb-6 text-sm">A solução definitiva para operações de grande escala.</p>
-                         <div class="mb-2">
-                           <span class="text-4xl font-extrabold text-white" x-text="`R$${calculateMonthly('advanced')}`"></span>
-                           <span class="text-gray-400 text-sm">/mês</span>
-                        </div>
-                        <div class="h-10 mb-4">
-                            <span x-show="billingCycle !== 'monthly'" class="text-xs font-semibold catalyst-red bg-red-900/50 px-2 py-1 rounded" x-text="discounts[billingCycle].label"></span>
-                            <p x-show="billingCycle !== 'monthly'" class="text-xs text-gray-400 mt-1" x-text="`Total: R$${calculateTotal('advanced').toLocaleString('pt-BR')}`"></p>
-                        </div>
-                        <ul class="mt-8 space-y-3 text-sm text-gray-300 flex-grow">
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Tudo do plano Intermediário, e mais:</span></li>
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Até <strong>10 usuários</strong></span></li>
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Caixas de Entrada <strong>Ilimitadas</strong></span></li>
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>SLA e Distribuição Avançada</span></li>
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Logs de Auditoria e Funções</span></li>
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Canal de Voz e Campanhas</span></li>
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg><span>Usuário adicional: <strong>R$119/mês</strong></span></li>
-                        </ul>
-                    </div>
-                     <!-- Plano Enterprise -->
-                    <div class="fade-in plan-card rounded-xl p-6 md:p-8 h-full flex flex-col" style="transition-delay: 600ms;">
-                        <h3 class="text-lg font-bold text-white">Enterprise</h3>
-                        <p class="text-gray-400 mt-1 mb-6 text-sm">Uma solução sob medida para sua operação.</p>
-                        <div class="mb-2">
-                            <span class="text-3xl font-extrabold text-white">Personalizado</span>
-                        </div>
-                         <div class="h-10 mb-4">
-                            <p class="text-sm text-gray-400 mt-1">Valores sob consulta</p>
-                        </div>
-                        <ul class="mt-8 space-y-3 text-sm text-gray-300 flex-grow">
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Tudo do plano Avançado, e mais:</span></li>
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Infraestrutura Sob Demanda</span></li>
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Desenvolvimento de Módulos</span></li>
-                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Suporte Prioritário</span></li>
-                        </ul>
-                    </div>
-                </div>
-                 <div class="fade-in mt-12 text-center text-gray-400">
-                    <p>Precisa de mais? Oferecemos planos empresariais totalmente personalizados.</p>
-                </div>
-                <div class="fade-in mt-16 text-center text-gray-400 border-t border-gray-800 pt-8 max-w-3xl mx-auto">
-                    <p class="font-semibold text-white">Sobre a Taxa de Implementação:</p>
-                    <p class="text-sm mt-2">Os planos Intermediário e Avançado incluem nosso serviço completo de setup e onboarding. Uma taxa de implementação pode ser aplicada, calculada com base na complexidade do seu projeto (configuração de IA, migração de dados, etc.). <br class="hidden sm:block"> Em negociações especiais, essa taxa pode ser isenta.</p>
-                </div>
-            </div>
-        </section>
-
+    
         <!-- Seção Comparativo -->
         <section id="comparativo" class="py-20 md:py-32 bg-black bg-opacity-20">
             <div class="container mx-auto px-6">
