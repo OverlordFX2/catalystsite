@@ -24,6 +24,7 @@
         .catalyst-red { color: #FF0000; }
         .bg-catalyst-red { background-color: #FF0000; }
         .border-catalyst-red { border-color: #FF0000; }
+        .catalyst-green { color: #29a2a7; }
 
         .hero-bg {
             position: relative;
@@ -85,11 +86,27 @@
             0%, 80%, 100% { transform: scale(0); }
             40% { transform: scale(1.0); }
         }
+
+        /* NOVOS ESTILOS PARA O FUNIL */
+        .funnel-arrow-down { animation: float-arrow 2s infinite ease-in-out; }
+        .funnel-arrow-right { animation: float-arrow-h 2s infinite ease-in-out; }
+        @keyframes float-arrow { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+        @keyframes float-arrow-h { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+        
+        .pulse-ring {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            border: 2px solid #29a2a7;
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulse-ring { 0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.8; } 100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; } }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- Cabeçalho -->
     <header x-data="{ open: false }" class="fixed top-0 left-0 w-full z-50 bg-black bg-opacity-80 backdrop-blur-lg border-b border-gray-800">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="flex items-center space-x-3 logo-container">
@@ -98,6 +115,7 @@
             </a>
             <nav class="hidden md:flex items-center space-x-8">
                 <a href="#features" class="text-gray-300 hover:text-catalyst-red transition">Funcionalidades</a>
+                <a href="#how-it-works" class="text-gray-300 hover:text-catalyst-red transition">Como Funciona</a>
                 <a href="#pricing" class="text-gray-300 hover:text-catalyst-red transition">Planos</a>
                 <a href="#comparativo" class="text-gray-300 hover:text-catalyst-red transition">Comparativo</a>
                 <a href="#faq" class="text-gray-300 hover:text-catalyst-red transition">FAQ</a>
@@ -109,9 +127,9 @@
                  </button>
             </div>
         </div>
-        <!-- Menu Mobile -->
         <div x-show="open" @click.away="open = false" class="md:hidden bg-black bg-opacity-90">
              <a href="#features" class="block text-center py-3 px-6 text-gray-300 hover:text-catalyst-red transition">Funcionalidades</a>
+             <a href="#how-it-works" class="block text-center py-3 px-6 text-gray-300 hover:text-catalyst-red transition">Como Funciona</a>
              <a href="#pricing" class="block text-center py-3 px-6 text-gray-300 hover:text-catalyst-red transition">Planos</a>
              <a href="#comparativo" class="block text-center py-3 px-6 text-gray-300 hover:text-catalyst-red transition">Comparativo</a>
              <a href="#faq" class="block text-center py-3 px-6 text-gray-300 hover:text-catalyst-red transition">FAQ</a>
@@ -119,7 +137,6 @@
     </header>
 
     <main>
-        <!-- Seção Hero -->
         <section class="hero-bg pt-32 pb-20 md:pt-48 md:pb-32 text-center relative">
             <div class="tech-lines"><div class="tech-line tech-line-1"></div><div class="tech-line tech-line-2"></div><div class="tech-line tech-line-3"></div><div class="tech-line tech-line-4"></div></div>
             <div class="container mx-auto px-6 relative z-10">
@@ -136,9 +153,7 @@
             </div>
         </section>
 
-        <!-- Seção Features Detalhadas -->
         <section id="features" class="py-20 md:py-32 space-y-20 md:space-y-32">
-            <!-- Feature 1: Omnichannel -->
             <div class="container mx-auto px-6">
                  <div class="text-center max-w-4xl mx-auto">
                     <div class="fade-in">
@@ -148,17 +163,13 @@
                     </div>
                 </div>
                 <div class="fade-in mt-12 md:mt-16" style="transition-delay: 200ms;">
-                    <!-- Mockup Omnichannel -->
                     <div class="max-w-7xl mx-auto">
                         <div class="bg-gray-900 rounded-2xl shadow-2xl overflow-hidden border border-gray-700">
-                            <!-- Top Bar -->
                             <div class="bg-gray-800 h-8 flex items-center px-4">
                                 <div class="flex space-x-2"><div class="w-3 h-3 rounded-full bg-red-500"></div><div class="w-3 h-3 rounded-full bg-yellow-500"></div><div class="w-3 h-3 rounded-full bg-green-500"></div></div>
                                 <div class="flex-1 text-center"><span class="text-gray-400 text-sm">CatalystChat - Plataforma Omnichannel</span></div>
                             </div>
-                            <!-- Main Interface -->
                             <div class="flex h-[500px] md:h-[600px]">
-                                <!-- Left Sidebar -->
                                 <div class="w-64 bg-gray-900 border-r border-gray-700 flex-col hidden md:flex">
                                     <div class="p-4 border-b border-gray-700">
                                         <div class="flex items-center mb-4">
@@ -175,27 +186,22 @@
                                                 <ul class="ml-6 mt-2 space-y-1">
                                                     <li><a href="#" class="block px-3 py-1 text-sm text-gray-400 hover:text-white">Todas as conversas</a></li>
                                                     <li><a href="#" class="block px-3 py-1 text-sm text-gray-400 hover:text-white">Minhas</a></li>
-                                                    <li><a href="#" class="block px-3 py-1 text-sm text-gray-400 hover:text-white">Não atribuídas</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-300 rounded-lg hover:bg-gray-800"><i class="ri-contacts-line mr-3 text-gray-500"></i>Contatos</a></li>
                                             <li><a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-300 rounded-lg hover:bg-gray-800"><i class="ri-bar-chart-line mr-3 text-gray-500"></i>Relatórios</a></li>
-                                            <li><a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-300 rounded-lg hover:bg-gray-800"><i class="ri-question-line mr-3 text-gray-500"></i>Central de Ajuda</a></li>
                                             <li><a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-300 rounded-lg hover:bg-gray-800"><i class="ri-settings-line mr-3 text-gray-500"></i>Configurações</a></li>
                                         </ul>
                                     </nav>
                                     <div class="p-4 border-t border-gray-700"><div class="flex items-center"><img src="https://www.televendasecobranca.com.br/wp-content/uploads/2015/07/Valorizar-e-investir-no-atendente-televendas-cobranca-3.jpg" alt="User" class="w-8 h-8 rounded-full mr-3 object-cover"><div class="flex-1 min-w-0"><p class="text-sm font-medium text-white truncate">Amanda Silva</p></div><div class="w-2 h-2 bg-green-500 rounded-full"></div></div></div>
                                 </div>
-                                <!-- Conversations List -->
                                 <div class="w-full md:w-80 bg-gray-800/50 border-r border-gray-700 flex flex-col">
-                                    <div class="p-4 bg-gray-900/70 border-b border-gray-700"><div class="flex items-center justify-between mb-3"><h3 class="font-semibold text-white">Conversas</h3><button class="text-gray-500 hover:text-white"><i class="ri-refresh-line"></i></button></div><div class="flex space-x-2"><button class="px-3 py-1 text-xs font-medium text-gray-300 hover:bg-gray-700 rounded-full">Minhas</button><button class="px-3 py-1 text-xs font-medium text-gray-300 hover:bg-gray-700 rounded-full">Não atribuídas</button><button class="px-3 py-1 text-xs font-medium bg-[#29a2a7] text-white rounded-full">Todos</button></div></div>
+                                    <div class="p-4 bg-gray-900/70 border-b border-gray-700"><div class="flex items-center justify-between mb-3"><h3 class="font-semibold text-white">Conversas</h3><button class="text-gray-500 hover:text-white"><i class="ri-refresh-line"></i></button></div><div class="flex space-x-2"><button class="px-3 py-1 text-xs font-medium bg-[#29a2a7] text-white rounded-full">Todos</button></div></div>
                                     <div class="flex-1 overflow-y-auto">
-                                        <div class="p-4 border-b border-gray-700 cursor-pointer bg-[#29a2a7]/10 border-l-4 border-l-[#29a2a7]"><div class="flex items-start space-x-3"><div class="relative"><div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center"><i class="ri-whatsapp-line text-white"></i></div><div class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">2</div></div><div class="flex-1 min-w-0"><div class="flex items-center justify-between mb-1"><h4 class="text-sm font-medium text-white truncate">Luciano Barbosa</h4><span class="text-xs text-gray-500">2min</span></div><p class="text-xs text-gray-400 mb-1">Amanda Silva</p><p class="text-sm text-gray-300 truncate">Preciso agendar uma consulta...</p><div class="flex items-center mt-2"><span class="text-xs px-2 py-1 bg-gray-700 text-gray-300 rounded-full">WhatsApp</span></div></div></div></div>
-                                        <div class="p-4 border-b border-gray-700 cursor-pointer hover:bg-gray-800/50"><div class="flex items-start space-x-3"><div class="relative"><div class="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center"><i class="ri-instagram-line text-white"></i></div></div><div class="flex-1 min-w-0"><div class="flex items-center justify-between mb-1"><h4 class="text-sm font-medium text-white truncate">João Silva</h4><span class="text-xs text-gray-500">15min</span></div><p class="text-xs text-gray-400 mb-1">Lucas Santos</p><p class="text-sm text-gray-300 truncate">Qual o valor do tratamento?</p><div class="flex items-center mt-2"><span class="text-xs px-2 py-1 bg-gray-700 text-gray-300 rounded-full">Instagram</span></div></div></div></div>
-                                        <div class="p-4 border-b border-gray-700 cursor-pointer hover:bg-gray-800/50"><div class="flex items-start space-x-3"><div class="relative"><div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center"><i class="ri-facebook-line text-white"></i></div><div class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">1</div></div><div class="flex-1 min-w-0"><div class="flex items-center justify-between mb-1"><h4 class="text-sm font-medium text-white truncate">Fernando Dias</h4><span class="text-xs text-gray-500">1h</span></div><p class="text-xs text-gray-400 mb-1">Não atribuído</p><p class="text-sm text-gray-300 truncate">Gostaria de saber sobre os planos</p><div class="flex items-center mt-2"><span class="text-xs px-2 py-1 bg-gray-700 text-gray-300 rounded-full">Facebook</span></div></div></div></div>
+                                        <div class="p-4 border-b border-gray-700 cursor-pointer bg-[#29a2a7]/10 border-l-4 border-l-[#29a2a7]"><div class="flex items-start space-x-3"><div class="relative"><div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center"><i class="ri-whatsapp-line text-white"></i></div></div><div class="flex-1 min-w-0"><div class="flex items-center justify-between mb-1"><h4 class="text-sm font-medium text-white truncate">Luciano Barbosa</h4><span class="text-xs text-gray-500">2min</span></div><p class="text-sm text-gray-300 truncate">Preciso agendar uma consulta...</p></div></div></div>
+                                        <div class="p-4 border-b border-gray-700 cursor-pointer hover:bg-gray-800/50"><div class="flex items-start space-x-3"><div class="relative"><div class="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center"><i class="ri-instagram-line text-white"></i></div></div><div class="flex-1 min-w-0"><div class="flex items-center justify-between mb-1"><h4 class="text-sm font-medium text-white truncate">João Silva</h4><span class="text-xs text-gray-500">15min</span></div><p class="text-sm text-gray-300 truncate">Qual o valor do tratamento?</p></div></div></div>
+                                        <div class="p-4 border-b border-gray-700 cursor-pointer hover:bg-gray-800/50"><div class="flex items-start space-x-3"><div class="relative"><div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center"><i class="ri-facebook-line text-white"></i></div></div><div class="flex-1 min-w-0"><div class="flex items-center justify-between mb-1"><h4 class="text-sm font-medium text-white truncate">Fernando Dias</h4><span class="text-xs text-gray-500">1h</span></div><p class="text-sm text-gray-300 truncate">Gostaria de saber sobre os planos</p></div></div></div>
                                     </div>
                                 </div>
-                                <!-- Chat Area -->
                                 <div class="flex-1 flex-col bg-gray-800 hidden md:flex">
                                     <div class="p-4 border-b border-gray-700 bg-gray-900/70"><div class="flex items-center justify-between"><div class="flex items-center"><div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center mr-3"><i class="ri-whatsapp-line text-white"></i></div><div><h3 class="font-semibold text-white">Luciano Barbosa</h3></div></div><button class="text-gray-500 hover:text-white"><i class="ri-more-line"></i></button></div></div>
                                     <div class="flex-1 overflow-y-auto p-4 space-y-4"><div class="flex justify-start"><div class="max-w-md"><div class="bg-gray-700 text-gray-200 rounded-lg px-4 py-2"><p class="text-sm">Olá! Preciso agendar uma consulta para amanhã de manhã.</p></div></div></div><div class="flex justify-end"><div class="max-w-md"><div class="bg-[#29a2a7] text-white rounded-lg px-4 py-2"><p class="text-sm">Olá! Claro, posso te ajudar com o agendamento. Que tipo de consulta você precisa?</p></div></div></div></div>
@@ -207,7 +213,6 @@
                 </div>
             </div>
             
-            <!-- Feature 2: IA SDR -->
             <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 md:gap-16 items-center">
                 <div class="fade-in md:order-2">
                     <span class="text-sm font-bold uppercase tracking-wider catalyst-red">INTELIGÊNCIA ARTIFICIAL</span>
@@ -215,7 +220,6 @@
                     <p class="text-gray-400 mt-6 text-lg">Nossa IA faz o primeiro atendimento, faz perguntas-chave para entender a necessidade e o potencial do lead e, usando a tecnologia RAG, consulta sua base de dados para dar respostas precisas. Se o lead for qualificado, ele é transferido para um vendedor com todo o histórico, otimizando o tempo da sua equipe.</p>
                 </div>
                 <div id="animated-mockup-container" class="fade-in md:order-1" style="transition-delay: 200ms;">
-                    <!-- Mockup Animado -->
                     <div class="relative rounded-2xl shadow-2xl border border-gray-700 bg-gray-900 overflow-hidden max-w-[500px] mx-auto">
                         <div class="h-10 bg-[#29a2a7]/10 flex items-center px-4 border-b border-gray-700">
                             <div class="flex items-center">
@@ -226,8 +230,7 @@
                             </div>
                         </div>
                         <div id="chat-messages" class="h-[400px] p-4 space-y-4 overflow-y-auto">
-                            <!-- As mensagens serão injetadas aqui pelo script -->
-                        </div>
+                            </div>
                         <div class="p-3 border-t border-gray-700 bg-gray-900/50">
                             <div class="flex gap-2">
                                 <input type="text" class="flex-1 px-3 py-1.5 rounded-lg bg-gray-800 focus:outline-none text-sm text-gray-300" placeholder="Digite sua mensagem...">
@@ -235,17 +238,11 @@
                                     <i class="ri-send-plane-line text-sm"></i>
                                 </button>
                             </div>
-                            <div class="flex gap-1.5 mt-2">
-                                <button class="bg-gray-800 text-xs px-2 py-0.5 rounded-full hover:bg-gray-700 transition-colors text-gray-400">Integração WhatsApp</button>
-                                <button class="bg-gray-800 text-xs px-2 py-0.5 rounded-full hover:bg-gray-700 transition-colors text-gray-400">Relatórios</button>
-                                <button class="bg-gray-800 text-xs px-2 py-0.5 rounded-full hover:bg-gray-700 transition-colors text-gray-400">Preços</button>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Feature 3: Múltiplos Atendentes -->
             <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 md:gap-16 items-center">
                 <div class="fade-in">
                     <span class="text-sm font-bold uppercase tracking-wider catalyst-red">WHATSAPP API OFICIAL</span>
@@ -281,24 +278,12 @@
                             </div>
                             <div class="w-48 bg-gray-900 border-l border-gray-700 flex-col hidden md:flex">
                                 <div class="p-3 border-b border-gray-700">
-                                    <h3 class="font-semibold text-white text-sm">Time Online (Vendas)</h3>
+                                    <h3 class="font-semibold text-white text-sm">Time Online</h3>
                                 </div>
                                 <div class="flex-1 p-3 space-y-3">
-                                    <div class="flex items-center">
-                                        <img src="https://www.televendasecobranca.com.br/wp-content/uploads/2015/07/Valorizar-e-investir-no-atendente-televendas-cobranca-3.jpg" class="w-8 h-8 rounded-full mr-2 object-cover">
-                                        <span class="text-sm text-white">Amanda S.</span>
-                                        <div class="w-2 h-2 bg-green-500 rounded-full ml-auto"></div>
-                                    </div>
-                                    <div class="flex items-center">
-                                         <img src="https://esemprego.com.br/wp-content/uploads/2021/04/telemarketing-758x474.png" class="w-8 h-8 rounded-full mr-2 object-cover">
-                                        <span class="text-sm text-white">Lucas M.</span>
-                                        <div class="w-2 h-2 bg-green-500 rounded-full ml-auto"></div>
-                                    </div>
-                                    <div class="flex items-center opacity-50">
-                                        <img src="https://media.investnews.com.br/uploads/2022/08/Beatriz-Machnick1.jpg" class="w-8 h-8 rounded-full mr-2 object-cover">
-                                        <span class="text-sm text-gray-400">Carla P.</span>
-                                        <div class="w-2 h-2 bg-gray-500 rounded-full ml-auto"></div>
-                                    </div>
+                                    <div class="flex items-center"><img src="https://www.televendasecobranca.com.br/wp-content/uploads/2015/07/Valorizar-e-investir-no-atendente-televendas-cobranca-3.jpg" class="w-8 h-8 rounded-full mr-2 object-cover"><span class="text-sm text-white">Amanda S.</span><div class="w-2 h-2 bg-green-500 rounded-full ml-auto"></div></div>
+                                    <div class="flex items-center"><img src="https://esemprego.com.br/wp-content/uploads/2021/04/telemarketing-758x474.png" class="w-8 h-8 rounded-full mr-2 object-cover"><span class="text-sm text-white">Lucas M.</span><div class="w-2 h-2 bg-green-500 rounded-full ml-auto"></div></div>
+                                    <div class="flex items-center opacity-50"><img src="https://media.investnews.com.br/uploads/2022/08/Beatriz-Machnick1.jpg" class="w-8 h-8 rounded-full mr-2 object-cover"><span class="text-sm text-gray-400">Carla P.</span><div class="w-2 h-2 bg-gray-500 rounded-full ml-auto"></div></div>
                                 </div>
                             </div>
                         </div>
@@ -306,7 +291,6 @@
                 </div>
             </div>
 
-            <!-- Feature 4: Relatórios -->
             <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 md:gap-16 items-center">
                 <div class="fade-in md:order-2">
                     <span class="text-sm font-bold uppercase tracking-wider catalyst-red">RELATÓRIOS INTELIGENTES</span>
@@ -314,25 +298,80 @@
                     <p class="text-gray-400 mt-6 text-lg">Acesse dashboards completos e entenda a performance do seu atendimento em detalhes. Monitore o volume de conversas, tempo de resposta, CSAT, produtividade por agente e canais mais eficientes para tomar decisões que realmente impactam seu resultado.</p>
                 </div>
                 <div class="fade-in md:order-1" style="transition-delay: 200ms;">
-                     <img src="https://v4mundim.com/wp-content/uploads/2025/09/image-5.jpg" alt="Print da tela de relatórios do CatalystChat com gráficos e métricas" class="rounded-xl shadow-2xl border border-gray-800">
-                </div>
-            </div>
-
-            <!-- Feature 5: IA Omnichannel -->
-            <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 md:gap-16 items-center">
-                <div class="fade-in">
-                    <span class="text-sm font-bold uppercase tracking-wider catalyst-red">IA ONIPRESENTE</span>
-                    <h2 class="text-3xl md:text-5xl font-bold text-white leading-tight mt-4">Inteligência consistente em todos os canais.</h2>
-                    <p class="text-gray-400 mt-6 text-lg">A mesma IA poderosa que qualifica seus leads no WhatsApp também atua no Instagram, no chat do site e onde mais você estiver. Isso garante uma experiência coesa para o cliente e uma operação centralizada e inteligente para sua equipe, 24 horas por dia.</p>
-                </div>
-                <div class="fade-in" style="transition-delay: 200ms;">
-                    <img src="https://v4mundim.com/wp-content/uploads/2025/09/Group-11-1.svg" alt="Ilustração da IA do CatalystChat conectada com ícones de vários canais" class="w-full h-auto">
+                      <img src="https://v4mundim.com/wp-content/uploads/2025/09/image-5.jpg" alt="Print da tela de relatórios do CatalystChat com gráficos e métricas" class="rounded-xl shadow-2xl border border-gray-800">
                 </div>
             </div>
 
         </section>
 
-        <!-- Seção Integrações Avançadas -->
+        <section id="how-it-works" class="py-20 md:py-24 bg-gradient-to-b from-[#0A0A0A] to-gray-900/40 border-y border-gray-800">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16 fade-in">
+                    <span class="text-sm font-bold uppercase tracking-wider catalyst-red">COMO FUNCIONA</span>
+                    <h2 class="text-3xl md:text-5xl font-bold text-white leading-tight mt-4">O Funil de Vendas Automático</h2>
+                    <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Do primeiro "oi" até o fechamento. Entenda como o CatalystChat organiza o caos.</p>
+                </div>
+
+                <div class="relative max-w-6xl mx-auto">
+                    <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-gray-800 via-[#29a2a7]/50 to-gray-800 -translate-y-1/2 z-0"></div>
+
+                    <div class="grid md:grid-cols-3 gap-8 relative z-10">
+                        
+                        <div class="fade-in flex flex-col items-center">
+                            <div class="bg-gray-900 border border-gray-700 p-8 rounded-2xl w-full h-full hover:border-gray-500 transition duration-300 relative group">
+                                <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-black border border-gray-700 text-gray-300 px-4 py-1 rounded-full text-sm font-bold shadow-xl">ETAPA 01</div>
+                                <div class="flex justify-center mb-6">
+                                    <div class="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center border border-green-500/30 text-green-500 text-3xl group-hover:scale-110 transition"><i class="ri-whatsapp-line"></i></div>
+                                </div>
+                                <h3 class="text-xl font-bold text-white text-center mb-2">Entrada de Leads</h3>
+                                <p class="text-gray-400 text-center text-sm">O cliente entra em contato pelo WhatsApp. Todas as mensagens caem instantaneamente na Caixa de Entrada Unificada.</p>
+                            </div>
+                            <div class="md:hidden my-4 text-gray-600 text-3xl funnel-arrow-down"><i class="ri-arrow-down-double-line"></i></div>
+                            <div class="hidden md:block absolute top-1/2 -right-4 -translate-y-1/2 text-[#29a2a7] text-4xl funnel-arrow-right z-20 bg-black rounded-full"><i class="ri-arrow-right-circle-fill"></i></div>
+                        </div>
+
+                        <div class="fade-in flex flex-col items-center" style="transition-delay: 200ms;">
+                            <div class="bg-gray-900 border border-gray-700 p-8 rounded-2xl w-full h-full hover:border-[#29a2a7] transition duration-300 relative group">
+                            <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-black border border-gray-700 text-gray-300 px-4 py-1 rounded-full text-sm font-bold shadow-xl">ETAPA 02</div>
+                            <div class="flex justify-center mb-6 relative">
+                            <div class="absolute top-1/2 left-1/2 w-32 h-32 bg-[#29a2a7]/20 rounded-full blur-2xl -translate-x-1/2 -translate-y-1/2 pointer-events-none group-hover:bg-[#29a2a7]/30 transition"></div>
+                            <div class="w-16 h-16 bg-[#29a2a7] rounded-full flex items-center justify-center shadow-lg text-white text-3xl relative z-10">
+                            <div class="pulse-ring"></div>
+                            <i class="ri-robot-line"></i>
+                       </div>
+        </div>
+        <h3 class="text-xl font-bold text-white text-center mb-2">Triagem Automática</h3>
+        <p class="text-gray-400 text-center text-sm">A IA responde em segundos, tira dúvidas usando sua base de conhecimento e qualifica o lead fazendo as perguntas certas.</p>
+    </div>
+     <div class="md:hidden my-4 text-gray-600 text-3xl funnel-arrow-down"><i class="ri-arrow-down-double-line"></i></div>
+     <div class="hidden md:block absolute top-1/2 -right-4 -translate-y-1/2 text-[#29a2a7] text-4xl funnel-arrow-right z-20 bg-black rounded-full"><i class="ri-arrow-right-circle-fill"></i></div>
+</div>
+
+                        <div class="fade-in flex flex-col items-center" style="transition-delay: 400ms;">
+                            <div class="bg-gray-900 border border-gray-700 p-8 rounded-2xl w-full h-full hover:border-catalyst-red transition duration-300 relative group">
+                                <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-black border border-gray-700 text-gray-300 px-4 py-1 rounded-full text-sm font-bold shadow-xl">ETAPA 03</div>
+                                <div class="flex justify-center mb-6">
+                                    <div class="flex -space-x-4">
+                                        <img class="w-12 h-12 rounded-full border-2 border-gray-900" src="https://i.pravatar.cc/150?img=32" alt="">
+                                        <img class="w-12 h-12 rounded-full border-2 border-gray-900" src="https://i.pravatar.cc/150?img=12" alt="">
+                                        <div class="w-12 h-12 rounded-full border-2 border-gray-900 bg-gray-700 flex items-center justify-center text-xs text-white">+5</div>
+                                    </div>
+                                </div>
+                                <h3 class="text-xl font-bold text-white text-center mb-2">Entrega ao Especialista</h3>
+                                <p class="text-gray-400 text-center text-sm">O lead qualificado ("quente") é entregue ao vendedor ideal com todo o histórico da conversa. Foco total em fechar a venda.</p>
+                                <div class="mt-4 flex justify-center">
+                                    <span class="inline-flex items-center text-xs font-medium px-2.5 py-0.5 rounded bg-green-900 text-green-300">
+                                        <span class="w-2 h-2 mr-1 bg-green-500 rounded-full"></span> Venda Realizada
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="py-20 md:py-24 bg-black">
             <div class="container mx-auto px-6 text-center max-w-3xl">
                 <div class="fade-in">
@@ -350,131 +389,137 @@
             </div>
         </section>
         
-        <!-- Seção de Planos -->
-    <section id="pricing" class="py-20 md:py-32 bg-black bg-opacity-20">
-    <div class="container mx-auto px-6" x-data="{
-        billingCycle: 'semiannual',
-        discounts: {
-            monthly:    { label: 'Pagamento recorrente' },
-            quarterly:  { label: 'Economize no plano trimestral' },
-            semiannual: { label: 'Economize no plano semestral' },
-            annual:     { label: 'Economize no plano anual' }
-        }
-     }">
-        <div class="text-center mb-12">
-            <h2 class="fade-in text-3xl md:text-5xl font-bold text-white">Planos desenhados para o seu <span class="catalyst-red">crescimento</span></h2>
-            <p class="fade-in mt-4 text-gray-400 max-w-2xl mx-auto">Escolha a solução que se adapta à sua necessidade. Sem surpresas, com todo o poder do CatalystChat e nosso suporte especializado.</p>
-        </div>
-        
-        <div class="fade-in mb-12 flex justify-center">
-            <div class="bg-gray-900 border border-gray-800 rounded-lg p-1 inline-grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-1">
-                <button @click="billingCycle = 'monthly'" :class="billingCycle === 'monthly' ? 'bg-catalyst-red text-white' : 'text-gray-400'" class="px-4 py-2 rounded-md font-semibold transition">Mensal</button>
-                <button @click="billingCycle = 'quarterly'" :class="billingCycle === 'quarterly' ? 'bg-catalyst-red text-white' : 'text-gray-400'" class="px-4 py-2 rounded-md font-semibold transition">Trimestral</button>
-                <button @click="billingCycle = 'semiannual'" :class="billingCycle === 'semiannual' ? 'bg-catalyst-red text-white' : 'text-gray-400'" class="px-4 py-2 rounded-md font-semibold transition">Semestral</button>
-                <button @click="billingCycle = 'annual'" :class="billingCycle === 'annual' ? 'bg-catalyst-red text-white' : 'text-gray-400'" class="px-4 py-2 rounded-md font-semibold transition">Anual</button>
-            </div>
-        </div>
-
-        <div class="grid lg:grid-cols-4 gap-8 items-start max-w-7xl mx-auto md:grid-cols-2">
-            <div class="fade-in plan-card rounded-xl p-6 md:p-8 h-full flex flex-col">
-                <h3 class="text-lg font-bold text-white">Básico</h3>
-                <p class="text-gray-400 mt-1 mb-6 text-sm">O ponto de partida ideal para organizar e centralizar seu atendimento.</p>
-                <div class="mb-2">
-                    <span class="text-3xl font-extrabold text-white">Sob Consulta</span>
-                </div>
-                <div class="h-10 mb-4">
-                    <span x-show="billingCycle !== 'monthly'" class="text-xs font-semibold catalyst-red bg-red-900/50 px-2 py-1 rounded" x-text="discounts[billingCycle].label"></span>
+        <section id="pricing" class="py-20 md:py-32 bg-black bg-opacity-20">
+             <div class="container mx-auto px-6" x-data="{
+                billingCycle: 'semiannual',
+                prices: { basic: 250, intermediate: 800, advanced: 1400 },
+                discounts: {
+                    monthly:    { discount: 0,    months: 1, label: 'Pagamento recorrente' },
+                    quarterly:  { discount: 0.10, months: 3, label: 'Economize 10% | Pague em até 3x' },
+                    semiannual: { discount: 0.20, months: 6, label: 'Economize 20% | Pague em até 6x' },
+                    annual:     { discount: 0.35, months: 12, label: 'Economize 35% | Pague em até 12x' }
+                },
+                calculateMonthly(plan) { 
+                    if (this.billingCycle === 'monthly') return this.prices[plan];
+                    return Math.round(this.prices[plan] * (1 - this.discounts[this.billingCycle].discount)); 
+                },
+                calculateTotal(plan) { 
+                    return this.calculateMonthly(plan) * this.discounts[this.billingCycle].months; 
+                }
+             }">
+                <div class="text-center mb-12">
+                    <h2 class="fade-in text-3xl md:text-5xl font-bold text-white">Planos desenhados para o seu <span class="catalyst-red">crescimento</span></h2>
+                    <p class="fade-in mt-4 text-gray-400 max-w-2xl mx-auto">Escolha a solução que se adapta à sua necessidade. Sem surpresas, com todo o poder do CatalystChat e nosso suporte especializado.</p>
                 </div>
                 
-                <ul class="mt-8 space-y-3 text-sm text-gray-300 flex-grow">
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Até <strong>2 usuários</strong></span></li>
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Até <strong>2 Caixas de Entrada</strong></span></li>
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Canais: Site, Email, Redes Sociais</span></li>
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>CRM de Contatos Unificado</span></li>
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg><span>Usuário adicional: <strong>Consulte</strong></span></li>
-                </ul>
+                <div class="fade-in mb-12 flex justify-center">
+                    <div class="bg-gray-900 border border-gray-800 rounded-lg p-1 inline-grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-1">
+                        <button @click="billingCycle = 'monthly'" :class="billingCycle === 'monthly' ? 'bg-catalyst-red text-white' : 'text-gray-400'" class="px-4 py-2 rounded-md font-semibold transition">Mensal</button>
+                        <button @click="billingCycle = 'quarterly'" :class="billingCycle === 'quarterly' ? 'bg-catalyst-red text-white' : 'text-gray-400'" class="px-4 py-2 rounded-md font-semibold transition">Trimestral</button>
+                        <button @click="billingCycle = 'semiannual'" :class="billingCycle === 'semiannual' ? 'bg-catalyst-red text-white' : 'text-gray-400'" class="px-4 py-2 rounded-md font-semibold transition">Semestral</button>
+                        <button @click="billingCycle = 'annual'" :class="billingCycle === 'annual' ? 'bg-catalyst-red text-white' : 'text-gray-400'" class="px-4 py-2 rounded-md font-semibold transition">Anual</button>
+                    </div>
+                </div>
+
+                <div class="grid lg:grid-cols-4 gap-8 items-start max-w-7xl mx-auto md:grid-cols-2">
+                    <div class="fade-in plan-card rounded-xl p-6 md:p-8 h-full flex flex-col">
+                        <h3 class="text-lg font-bold text-white">Básico</h3>
+                        <p class="text-gray-400 mt-1 mb-6 text-sm">O ponto de partida ideal para organizar e centralizar seu atendimento.</p>
+                        <div class="mb-2">
+                            <span class="text-4xl font-extrabold text-white" x-text="`R$${calculateMonthly('basic')}`"></span>
+                            <span class="text-gray-400 text-sm">/mês</span>
+                        </div>
+                        <div class="h-10 mb-4">
+                            <span x-show="billingCycle !== 'monthly'" class="text-xs font-semibold catalyst-red bg-red-900/50 px-2 py-1 rounded" x-text="discounts[billingCycle].label"></span>
+                            <p x-show="billingCycle !== 'monthly'" class="text-xs text-gray-400 mt-1" x-text="`Total: R$${calculateTotal('basic').toLocaleString('pt-BR')}`"></p>
+                        </div>
+                        
+                        <ul class="mt-8 space-y-3 text-sm text-gray-300 flex-grow">
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Até <strong>2 usuários</strong></span></li>
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Até <strong>2 Caixas de Entrada</strong></span></li>
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Canais: Site, Email, Redes Sociais</span></li>
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>CRM de Contatos Unificado</span></li>
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg><span>Usuário adicional: <strong>R$69/mês</strong></span></li>
+                        </ul>
+                    </div>
+                    <div class="fade-in plan-card popular rounded-xl p-6 md:p-8 h-full flex flex-col relative" style="transition-delay: 200ms;">
+                        <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-catalyst-red text-white text-xs font-bold px-4 py-1 rounded-full uppercase">Mais Popular</div>
+                        <h3 class="text-lg font-bold text-white">Intermediário</h3>
+                        <p class="text-gray-400 mt-1 mb-6 text-sm">A escolha inteligente para quem busca eficiência e um atendimento de ponta com IA.</p>
+                        <div class="mb-2">
+                           <span class="text-4xl font-extrabold text-white" x-text="`R$${calculateMonthly('intermediate')}`"></span>
+                           <span class="text-gray-400 text-sm">/mês</span>
+                        </div>
+                         <div class="h-10 mb-4">
+                            <span x-show="billingCycle !== 'monthly'" class="text-xs font-semibold catalyst-red bg-red-900/50 px-2 py-1 rounded" x-text="discounts[billingCycle].label"></span>
+                            <p x-show="billingCycle !== 'monthly'" class="text-xs text-gray-400 mt-1" x-text="`Total: R$${calculateTotal('intermediate').toLocaleString('pt-BR')}`"></p>
+                        </div>
+
+                        <ul class="mt-8 space-y-3 text-sm text-gray-300 flex-grow">
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Tudo do plano Básico, e mais:</span></li>
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Até <strong>5 usuários</strong></span></li>
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Até <strong>5 Caixas de Entrada</strong></span></li>
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Canal <strong>WhatsApp API Oficial</strong></span></li>
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>IA SDR para Qualificação de Leads</strong></span></li>
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Automações e Help Center</span></li>
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg><span>Usuário adicional: <strong>R$89/mês</strong></span></li>
+                        </ul>
+                    </div>
+                    <div class="fade-in plan-card rounded-xl p-6 md:p-8 h-full flex flex-col" style="transition-delay: 400ms;">
+                        <h3 class="text-lg font-bold text-white">Avançado</h3>
+                        <p class="text-gray-400 mt-1 mb-6 text-sm">A solução definitiva para operações de grande escala.</p>
+                         <div class="mb-2">
+                           <span class="text-4xl font-extrabold text-white" x-text="`R$${calculateMonthly('advanced')}`"></span>
+                           <span class="text-gray-400 text-sm">/mês</span>
+                        </div>
+                        <div class="h-10 mb-4">
+                            <span x-show="billingCycle !== 'monthly'" class="text-xs font-semibold catalyst-red bg-red-900/50 px-2 py-1 rounded" x-text="discounts[billingCycle].label"></span>
+                            <p x-show="billingCycle !== 'monthly'" class="text-xs text-gray-400 mt-1" x-text="`Total: R$${calculateTotal('advanced').toLocaleString('pt-BR')}`"></p>
+                        </div>
+                        <ul class="mt-8 space-y-3 text-sm text-gray-300 flex-grow">
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Tudo do plano Intermediário, e mais:</span></li>
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Até <strong>10 usuários</strong></span></li>
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Caixas de Entrada <strong>Ilimitadas</strong></span></li>
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>SLA e Distribuição Avançada</span></li>
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Logs de Auditoria e Funções</span></li>
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Canal de Voz e Campanhas</span></li>
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg><span>Usuário adicional: <strong>R$119/mês</strong></span></li>
+                        </ul>
+                    </div>
+                     <div class="fade-in plan-card rounded-xl p-6 md:p-8 h-full flex flex-col" style="transition-delay: 600ms;">
+                        <h3 class="text-lg font-bold text-white">Enterprise</h3>
+                        <p class="text-gray-400 mt-1 mb-6 text-sm">Uma solução sob medida para sua operação.</p>
+                        <div class="mb-2">
+                            <span class="text-3xl font-extrabold text-white">Personalizado</span>
+                        </div>
+                         <div class="h-10 mb-4">
+                            <p class="text-sm text-gray-400 mt-1">Valores sob consulta</p>
+                        </div>
+                        <ul class="mt-8 space-y-3 text-sm text-gray-300 flex-grow">
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Tudo do plano Avançado, e mais:</span></li>
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Infraestrutura Sob Demanda</span></li>
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Desenvolvimento de Módulos</span></li>
+                             <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Suporte Prioritário</span></li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="fade-in mt-12 text-center text-gray-400">
+                    <p>Precisa de mais? Oferecemos planos empresariais totalmente personalizados.</p>
+                </div>
+                <div class="fade-in mt-16 text-center text-gray-400 border-t border-gray-800 pt-8 max-w-3xl mx-auto">
+                    <p class="font-semibold text-white">Sobre a Taxa de Implementação:</p>
+                    <p class="text-sm mt-2">Os planos Intermediário e Avançado incluem nosso serviço completo de setup e onboarding. Uma taxa de implementação pode ser aplicada, calculada com base na complexidade do seu projeto (configuração de IA, migração de dados, etc.). <br class="hidden sm:block"> Em negociações especiais, essa taxa pode ser isenta.</p>
+                </div>
             </div>
+        </section>
 
-            <div class="fade-in plan-card popular rounded-xl p-6 md:p-8 h-full flex flex-col relative" style="transition-delay: 200ms;">
-                <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-catalyst-red text-white text-xs font-bold px-4 py-1 rounded-full uppercase">Mais Popular</div>
-                <h3 class="text-lg font-bold text-white">Intermediário</h3>
-                <p class="text-gray-400 mt-1 mb-6 text-sm">A escolha inteligente para quem busca eficiência e um atendimento de ponta com IA.</p>
-                <div class="mb-2">
-                    <span class="text-3xl font-extrabold text-white">Sob Consulta</span>
-                </div>
-                 <div class="h-10 mb-4">
-                    <span x-show="billingCycle !== 'monthly'" class="text-xs font-semibold catalyst-red bg-red-900/50 px-2 py-1 rounded" x-text="discounts[billingCycle].label"></span>
-                </div>
-
-                <ul class="mt-8 space-y-3 text-sm text-gray-300 flex-grow">
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Tudo do plano Básico, e mais:</span></li>
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Até <strong>5 usuários</strong></span></li>
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Até <strong>5 Caixas de Entrada</strong></span></li>
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Canal <strong>WhatsApp API Oficial</strong></span></li>
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span><strong>IA SDR para Qualificação de Leads</strong></span></li>
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Automações e Help Center</span></li>
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg><span>Usuário adicional: <strong>Consulte</strong></span></li>
-                </ul>
-            </div>
-
-            <div class="fade-in plan-card rounded-xl p-6 md:p-8 h-full flex flex-col" style="transition-delay: 400ms;">
-                <h3 class="text-lg font-bold text-white">Avançado</h3>
-                <p class="text-gray-400 mt-1 mb-6 text-sm">A solução definitiva para operações de grande escala.</p>
-                 <div class="mb-2">
-                    <span class="text-3xl font-extrabold text-white">Sob Consulta</span>
-                </div>
-                <div class="h-10 mb-4">
-                    <span x-show="billingCycle !== 'monthly'" class="text-xs font-semibold catalyst-red bg-red-900/50 px-2 py-1 rounded" x-text="discounts[billingCycle].label"></span>
-                </div>
-                <ul class="mt-8 space-y-3 text-sm text-gray-300 flex-grow">
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Tudo do plano Intermediário, e mais:</span></li>
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Até <strong>10 usuários</strong></span></li>
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Caixas de Entrada <strong>Ilimitadas</strong></span></li>
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>SLA e Distribuição Avançada</span></li>
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Logs de Auditoria e Funções</span></li>
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Canal de Voz e Campanhas</span></li>
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg><span>Usuário adicional: <strong>Consulte</strong></span></li>
-                </ul>
-            </div>
-
-             <div class="fade-in plan-card rounded-xl p-6 md:p-8 h-full flex flex-col" style="transition-delay: 600ms;">
-                <h3 class="text-lg font-bold text-white">Enterprise</h3>
-                <p class="text-gray-400 mt-1 mb-6 text-sm">Uma solução sob medida para sua operação.</p>
-                <div class="mb-2">
-                    <span class="text-3xl font-extrabold text-white">Personalizado</span>
-                </div>
-                 <div class="h-10 mb-4">
-                    <p class="text-sm text-gray-400 mt-1">Valores sob consulta</p>
-                </div>
-                <ul class="mt-8 space-y-3 text-sm text-gray-300 flex-grow">
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Tudo do plano Avançado, e mais:</span></li>
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Infraestrutura Sob Demanda</span></li>
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Desenvolvimento de Módulos</span></li>
-                     <li class="flex items-start"><svg class="w-4 h-4 mr-2 text-catalyst-red flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Suporte Prioritário</span></li>
-                </ul>
-            </div>
-        </div>
-        
-         <div class="fade-in mt-12 text-center text-gray-400">
-            <p>Precisa de mais? Oferecemos planos empresariais totalmente personalizados.</p>
-        </div>
-        <div class="fade-in mt-16 text-center text-gray-400 border-t border-gray-800 pt-8 max-w-3xl mx-auto">
-            <p class="font-semibold text-white">Sobre a Taxa de Implementação:</p>
-            <p class="text-sm mt-2">Os planos Intermediário e Avançado incluem nosso serviço completo de setup e onboarding. Uma taxa de implementação pode ser aplicada, calculada com base na complexidade do seu projeto (configuração de IA, migração de dados, etc.). <br class="hidden sm:block"> Em negociações especiais, essa taxa pode ser isenta.</p>
-        </div>
-    </div>
-</section>
-
-        <!-- Seção Comparativo -->
         <section id="comparativo" class="py-20 md:py-32 bg-black bg-opacity-20">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
                     <h2 class="fade-in text-3xl md:text-5xl font-bold text-white">Compare e <span class="catalyst-red">Comprove</span></h2>
                     <p class="fade-in mt-4 text-gray-400 max-w-2xl mx-auto">Veja por que o CatalystChat é a evolução das plataformas de atendimento tradicionais.</p>
                 </div>
-                <!-- Container para a Tabela Responsiva -->
                 <div class="fade-in max-w-4xl mx-auto">
-                    <!-- Tabela para Desktop -->
                     <div class="hidden md:block bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
                         <table class="w-full text-left">
                             <thead class="border-b border-gray-800">
@@ -513,9 +558,7 @@
                             </tbody>
                         </table>
                     </div>
-                     <!-- Cards para Mobile -->
-                    <div class="md:hidden space-y-4">
-                        <!-- Card 1 -->
+                     <div class="md:hidden space-y-4">
                         <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
                             <h4 class="font-semibold text-white mb-3">IA SDR para Qualificação de Leads</h4>
                             <div class="flex justify-between items-center border-t border-gray-800 pt-3">
@@ -523,7 +566,6 @@
                                 <span class="font-bold catalyst-green">CatalystChat: <span class="text-xl ml-2">✅</span></span>
                             </div>
                         </div>
-                        <!-- Card 2 -->
                         <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
                             <h4 class="font-semibold text-white mb-3">Setup e Onboarding Gerenciado</h4>
                             <div class="flex justify-between items-center border-t border-gray-800 pt-3">
@@ -531,24 +573,21 @@
                                 <span class="font-bold catalyst-green text-sm">CatalystChat: Incluso</span>
                             </div>
                         </div>
-                         <!-- Card 3 -->
-                        <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+                         <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
                             <h4 class="font-semibold text-white mb-3">WhatsApp API com Múltiplos Agentes</h4>
                             <div class="flex justify-between items-center border-t border-gray-800 pt-3">
                                 <span class="text-gray-400 text-sm">Tradicionais: Limitado</span>
                                 <span class="font-bold catalyst-green text-sm">CatalystChat: Escalável</span>
                             </div>
                         </div>
-                         <!-- Card 4 -->
-                        <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+                         <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
                             <h4 class="font-semibold text-white mb-3">Suporte com Especialista Dedicado</h4>
                             <div class="flex justify-between items-center border-t border-gray-800 pt-3">
                                 <span class="text-gray-400">Tradicionais: <span class="text-xl ml-2">❌</span></span>
                                 <span class="font-bold catalyst-green">CatalystChat: <span class="text-xl ml-2">✅</span></span>
                             </div>
                         </div>
-                         <!-- Card 5 -->
-                        <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+                         <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
                             <h4 class="font-semibold text-white mb-3">Custo-Benefício</h4>
                             <div class="flex justify-between items-center border-t border-gray-800 pt-3">
                                 <span class="text-gray-400 text-sm">Tradicionais: Elevado</span>
@@ -560,14 +599,12 @@
             </div>
         </section>
 
-        <!-- Seção FAQ -->
         <section id="faq" class="py-20 md:py-32">
             <div class="container mx-auto px-6 max-w-3xl">
                 <div class="text-center mb-16">
                     <h2 class="fade-in text-3xl md:text-5xl font-bold text-white">Perguntas <span class="catalyst-red">Frequentes</span></h2>
                 </div>
                 <div class="space-y-4" x-data="{ open: 1 }">
-                    <!-- FAQ 1 -->
                     <div class="fade-in faq-item rounded-xl">
                         <div @click="open = (open === 1 ? 0 : 1)" class="faq-question p-6 flex justify-between items-center">
                             <h3 class="text-lg font-semibold text-white">Como a IA qualifica os leads?</h3>
@@ -579,8 +616,7 @@
                            </div>
                         </div>
                     </div>
-                    <!-- FAQ 2 -->
-                     <div class="fade-in faq-item rounded-xl">
+                    <div class="fade-in faq-item rounded-xl">
                         <div @click="open = (open === 2 ? 0 : 2)" class="faq-question p-6 flex justify-between items-center">
                             <h3 class="text-lg font-semibold text-white">Preciso ter uma empresa para usar o WhatsApp API Oficial?</h3>
                              <svg class="w-6 h-6 transform transition-transform duration-300" :class="{'rotate-45': open === 2}" fill="none" stroke="#FF0000" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
@@ -591,7 +627,6 @@
                            </div>
                         </div>
                     </div>
-                    <!-- FAQ 3 -->
                     <div class="fade-in faq-item rounded-xl">
                         <div @click="open = (open === 3 ? 0 : 3)" class="faq-question p-6 flex justify-between items-center">
                             <h3 class="text-lg font-semibold text-white">A IA pode se conectar aos meus sistemas (ERP, Banco de Dados)?</h3>
@@ -603,8 +638,7 @@
                            </div>
                         </div>
                     </div>
-                     <!-- FAQ 4 -->
-                    <div class="fade-in faq-item rounded-xl">
+                     <div class="fade-in faq-item rounded-xl">
                         <div @click="open = (open === 4 ? 0 : 4)" class="faq-question p-6 flex justify-between items-center">
                             <h3 class="text-lg font-semibold text-white">Existe contrato de fidelidade?</h3>
                              <svg class="w-6 h-6 transform transition-transform duration-300" :class="{'rotate-45': open === 4}" fill="none" stroke="#FF0000" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
@@ -620,7 +654,6 @@
         </section>
     </main>
 
-    <!-- Rodapé -->
     <footer class="border-t border-gray-800 py-8">
         <div class="container mx-auto px-6 text-center text-gray-500">
             <p>&copy; 2024 CatalystChat. Uma solução orgulhosamente desenvolvida em parceria com a V4 Company.</p>
@@ -740,4 +773,3 @@
     </script>
 </body>
 </html>
-
